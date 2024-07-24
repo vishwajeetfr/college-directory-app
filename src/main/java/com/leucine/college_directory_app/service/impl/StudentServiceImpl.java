@@ -37,10 +37,22 @@ public class StudentServiceImpl implements StudentService {
                 new ResourceNotFoundExeception("Student profile not exists with id :" + studentProfileId.toString()));
         return StudentMapper.mapToStudentProfileDTO(student);
     }
+    @Override
+    public StudentProfileDTO getStudentProfileByStudentUserName(String username) {
+        final var student = studentRepository.findByUserUsername(username).orElseThrow(() ->
+                new ResourceNotFoundExeception("Student profile not exists with username :" + username));
+        return StudentMapper.mapToStudentProfileDTO(student);
+    }
 
     @Override
     public List<StudentProfileDTO> getAllStudentProfiles() {
         List<StudentProfile> students = studentRepository.findAll();
+        return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentProfileDTO> getStudentProfilesByYear(String year) {
+        List<StudentProfile> students = studentRepository.findAllByYear(year);
         return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());
     }
 
