@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/home")
 public class HomeController {
@@ -23,4 +25,10 @@ public class HomeController {
     public ResponseEntity<String> publicUser() {
         return ResponseEntity.ok("Yes, I am public user");
     }
+    @PreAuthorize("hasRole('ADMINISTRATOR') || hasRole('STUDENT')")
+    @GetMapping("/current-user")
+    public ResponseEntity<String> getLoogedInUser(Principal principle) {
+        return ResponseEntity.ok(principle.getName());
+    }
+
 }

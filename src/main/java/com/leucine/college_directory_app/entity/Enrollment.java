@@ -1,11 +1,16 @@
 package com.leucine.college_directory_app.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+@Builder(toBuilder = true)
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Enrollment")
-@Data
 public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
