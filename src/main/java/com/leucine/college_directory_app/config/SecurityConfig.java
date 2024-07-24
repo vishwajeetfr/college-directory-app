@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .roles("STUDENT")
                 .build();
 
-        UserDetails facultyMember = User.withUsername("faculty")
+        UserDetails facultyMember = User.withUsername("facultyNo1")
                 .password(passwordEncoder().encode("password"))
                 .roles("FACULTY_MEMBER")
                 .build();
@@ -76,23 +76,6 @@ public class SecurityConfig {
                 adminUser);
         return inMemoryUserDetailsManager;
     }
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.csrf().disable().authorizeHttpRequests()
-//
-//             //   .requestMatchers("/home/admin/**")
-//             //   .hasRole("ADMIN")
-//             //   .requestMatchers("/home/normal")
-//             //   .hasRole("NORMAL")
-//
-//                .requestMatchers("/api/bruhs/**")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin();
-//        return httpSecurity.build();
-//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {

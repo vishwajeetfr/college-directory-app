@@ -23,7 +23,7 @@ public class FacultyController {
     private FacultyService facultySercvie;
 
     @GetMapping("/{facultyId}/students")
-    @PreAuthorize("hasRole('FACULTY') || hasRole('ADMIN')")
+    @PreAuthorize("hasRole('FACULTY_MEMBER') || hasRole('ADMINISTRATOR')")
     public ResponseEntity<List<StudentProfileDTO>> getStudentsByFacultyId(@PathVariable("facultyId") Long facultyUserId) {
         List<StudentProfileDTO> students = enrollmentService.getStudentsByFacultyUserId(facultyUserId);
         return ResponseEntity.ok(students);
