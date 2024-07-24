@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: leucine-college-directory
+  datasource:
+    url: jdbc:postgresql://localhost:5432/leucine
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+    pool-size: 30
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  flyway:
+    enabled: true
+    schemas: public
+    username: postgres
+    password: password
+    locations: classpath:db/migrations
+
+
