@@ -45,6 +45,31 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentProfileDTO> getStudentProfileByStudentName(String name) {
+        final var students = studentRepository.findByUserName(name).orElseThrow(() ->
+                new ResourceNotFoundExeception("Student profiles not exists with name :" + name));
+        return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentProfileDTO> getStudentProfileByDepartmentName(String name) {
+        final var students = studentRepository.findByDepartmentName(name).orElseThrow(() ->
+                new ResourceNotFoundExeception("Student profiles not exists with department name :" + name));
+        return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentProfileDTO> getStudentProfilesByUserNameDepartmentNameYear(String name,
+                                                                                  String departmentName,
+                                                                                  String year) {
+        final var students = studentRepository.findByUserNameAndDepartmentNameAndYear(name,departmentName,year).orElseThrow(() ->
+                new ResourceNotFoundExeception("Student profiles not exists with filter criteria name :" + name +
+                        ", departmentName" + departmentName + " and year : "+ year));
+        return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());
+    }
+
+
+    @Override
     public List<StudentProfileDTO> getAllStudentProfiles() {
         List<StudentProfile> students = studentRepository.findAll();
         return students.stream().map(e -> StudentMapper.mapToStudentProfileDTO(e)).collect(Collectors.toList());

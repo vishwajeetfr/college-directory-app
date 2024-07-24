@@ -35,6 +35,29 @@ public class StudentController {
         final var studentProfile = studentService.getStudentProfileByStudentUserName(username);
         return ResponseEntity.ok(studentProfile);
     }
+    @GetMapping("/name/{name}")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ResponseEntity<List<StudentProfileDTO>> getStudentProfileByStudentName(@PathVariable("name") String name){
+        final var studentProfiles = studentService.getStudentProfileByStudentName(name);
+        return ResponseEntity.ok(studentProfiles);
+    }
+    @GetMapping("/department/{name}")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ResponseEntity<List<StudentProfileDTO>> getStudentProfileByDepartmentName(@PathVariable("name") String name){
+        final var studentProfiles = studentService.getStudentProfileByDepartmentName(name);
+        return ResponseEntity.ok(studentProfiles);
+    }
+
+    @GetMapping("/name/{name}/department/{departmentName}/year/{year}")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ResponseEntity<List<StudentProfileDTO>> getStudentProfilesByUserNameDepartmentNameYear(
+            @PathVariable("name") String name,
+            @PathVariable("departmentName") String departmentName,
+            @PathVariable("year") String year
+            ){
+        final var studentProfiles = studentService.getStudentProfilesByUserNameDepartmentNameYear(name, departmentName, year);
+        return ResponseEntity.ok(studentProfiles);
+    }
 
     @GetMapping("/year/{year}")
     @PreAuthorize("hasRole('STUDENT')")

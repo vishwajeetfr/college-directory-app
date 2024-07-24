@@ -39,9 +39,19 @@ public class AuthController {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUserName());
         String token = this.helper.generateToken(userDetails);
+        final String userRole;
+        if(request.getUserName().equals("leucine")){
+            userRole = "ADMINISTRATOR";
+        }
+        else if(request.getUserName().equals("student")){
+            userRole = "STUDENT";
+        } else {
+            userRole = "FACULTY_MEMBER";
+        }
 
         JwtResponse response = JwtResponse.builder()
                 .jwtToken(token)
+                .role(userRole)
                 .userName(userDetails.getUsername()).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
